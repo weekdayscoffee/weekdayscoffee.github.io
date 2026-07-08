@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekdays Coffee — Under Maintenance</title>
+<meta name="description" content="Weekdays Coffee sedang dalam perbaikan. Kami akan segera kembali.">
+ 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+ 
+<style>
+  :root{
+    --cream:#f3ede4;
+    --amber:#a8702f;
+    --amber-light:#c98b4a;
+    --ink:#0c0a08;
+    --overlay-top: rgba(8,6,4,0.55);
+    --overlay-bottom: rgba(6,4,3,0.88);
+  }
+ 
+  *{margin:0;padding:0;box-sizing:border-box;}
+ 
+  html,body{
+    height:100%;
+  }
+ 
+  body{
+    font-family:'Jost', sans-serif;
+    background:#000;
+    color:var(--cream);
+    overflow-x:hidden;
+  }
+ 
+  .stage{
+    position:relative;
+    min-height:100vh;
+    min-height:100svh;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    isolation:isolate;
+  }
+ 
+  .bg{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    background-image:url('assets/maintenance-bg.png');
+    background-size:cover;
+    background-position:center 30%;
+    background-repeat:no-repeat;
+  }
+ 
+  .bg::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(180deg, var(--overlay-top) 0%, rgba(10,8,6,0.45) 40%, var(--overlay-bottom) 100%),
+      linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 45%, rgba(0,0,0,0.05) 100%);
+  }
+ 
+  /* Decorative dot grid, top right */
+  .dots{
+    position:absolute;
+    top:clamp(24px, 4vw, 48px);
+    right:clamp(24px, 4vw, 56px);
+    display:grid;
+    grid-template-columns:repeat(6, 1fr);
+    gap:6px;
+    z-index:1;
+    opacity:0.55;
+  }
+  .dots span{
+    width:4px;
+    height:4px;
+    border-radius:50%;
+    background:var(--cream);
+    display:block;
+  }
+  @media (max-width:640px){
+    .dots{display:none;}
+  }
+ 
+  main{
+    position:relative;
+    z-index:1;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:clamp(28px, 6vw, 90px);
+    padding-top:clamp(56px, 10vw, 100px);
+  }
+ 
+  .logo{
+    font-family:'Playfair Display', serif;
+    font-weight:500;
+    letter-spacing:0.18em;
+    font-size:clamp(2rem, 6vw, 3.6rem);
+    text-transform:uppercase;
+    color:var(--cream);
+    display:inline-flex;
+    align-items:flex-start;
+    line-height:1;
+  }
+  .logo sup{
+    font-size:0.32em;
+    letter-spacing:0;
+    margin-left:0.15em;
+    font-weight:400;
+  }
+ 
+  .headline{
+    margin-top:clamp(1.4rem, 5vw, 2.6rem);
+    font-family:'Playfair Display', serif;
+    font-weight:700;
+    font-size:clamp(2.1rem, 8vw, 5rem);
+    line-height:1.05;
+    max-width:14ch;
+    color:var(--cream);
+  }
+ 
+  .sub{
+    margin-top:1.1rem;
+    max-width:38ch;
+    font-size:clamp(0.95rem, 1.4vw, 1.1rem);
+    font-weight:300;
+    line-height:1.6;
+    color:rgba(243,237,228,0.82);
+  }
+ 
+  footer{
+    position:relative;
+    z-index:1;
+    padding:clamp(20px, 4vw, 40px) clamp(24px, 6vw, 90px) clamp(28px, 5vw, 48px);
+  }
+ 
+  .ig-bar{
+    display:flex;
+    align-items:center;
+    gap:clamp(14px, 2vw, 22px);
+  }
+ 
+  .ig-icon{
+    flex-shrink:0;
+    width:clamp(38px, 4.5vw, 46px);
+    height:clamp(38px, 4.5vw, 46px);
+    border:1.5px solid rgba(243,237,228,0.9);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--cream);
+  }
+  .ig-icon svg{width:52%;height:52%;}
+ 
+  .ig-link{
+    flex:1;
+    position:relative;
+    display:flex;
+    align-items:center;
+    text-decoration:none;
+    color:var(--ink);
+    font-weight:500;
+    font-size:clamp(1rem, 2.4vw, 1.3rem);
+    letter-spacing:0.01em;
+    background:linear-gradient(90deg, var(--amber-light), var(--amber) 85%);
+    border-radius:999px;
+    padding:clamp(10px, 1.6vw, 16px) clamp(20px, 3vw, 32px);
+    padding-right:clamp(60px, 8vw, 84px);
+    overflow:hidden;
+    transition:transform .35s ease, filter .35s ease;
+  }
+  .ig-link:hover{
+    filter:brightness(1.06);
+  }
+  .ig-link:active{
+    transform:scale(0.99);
+  }
+ 
+  .arrow-circle{
+    position:absolute;
+    right:clamp(6px, 1vw, 10px);
+    top:50%;
+    transform:translateY(-50%);
+    width:clamp(34px, 4.2vw, 42px);
+    height:clamp(34px, 4.2vw, 42px);
+    border-radius:50%;
+    border:1.5px solid var(--ink);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:transform .35s ease;
+  }
+  .ig-link:hover .arrow-circle{
+    transform:translateY(-50%) translateX(3px);
+  }
+  .arrow-circle svg{width:52%;height:52%;}
+ 
+  @media (max-width:480px){
+    .ig-icon{display:none;}
+    .ig-link{padding-right:clamp(52px,14vw,64px);}
+  }
+ 
+  /* Accessibility */
+  .sr-only{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+  }
+ 
+  a.ig-link:focus-visible,
+  .ig-icon:focus-visible{
+    outline:2px solid var(--cream);
+    outline-offset:3px;
+  }
+ 
+  @media (prefers-reduced-motion: reduce){
+    .ig-link, .arrow-circle{transition:none;}
+  }
+</style>
+</head>
+<body>
+ 
+  <div class="bg" aria-hidden="true"></div>
+ 
+  <div class="stage">
+    <div class="dots" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+ 
+    <main>
+      <div class="logo">Weekdays<sup>® Coffee</sup></div>
+      <h1 class="headline">Under Maintenance</h1>
+      <p class="sub">Kami sedang meracik pembaruan di balik layar. Situs akan segera kembali menyala - sampai saat itu, temukan kami di Instagram.</p>
+    </main>
+ 
+    <footer>
+      <div class="ig-bar">
+        <a class="ig-icon" href="https://instagram.com/weekdayscoffee.id" target="_blank" rel="noopener noreferrer" aria-label="Kunjungi Instagram Weekdays Coffee">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5.5"></rect>
+            <circle cx="12" cy="12" r="4.2"></circle>
+            <circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none"></circle>
+          </svg>
+        </a>
+        <a class="ig-link" href="https://instagram.com/weekdayscoffee.id" target="_blank" rel="noopener noreferrer">
+          @weekdayscoffee.id
+          <span class="arrow-circle" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" y1="12" x2="20" y2="12"></line>
+              <polyline points="13 5 20 12 13 19"></polyline>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </footer>
+  </div>
+ 
+</body>
+</html>
+ 
